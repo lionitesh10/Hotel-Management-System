@@ -87,6 +87,7 @@ public class DatabaseInitialization {
                     "rate varchar(255) not null," +
                     "quantity varchar(255) not null," +
                     "staydays varchar(255) not null," +
+                    "status tinyint(0) not null," +
                     "guest_id int," +
                     "FOREIGN KEY(guest_id) REFERENCES Guests(Id)" +
                     ");");
