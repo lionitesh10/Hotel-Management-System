@@ -8,17 +8,16 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class AccountsRepository {
-    private String driver="com.mysql.jdbc.Driver";
-    private String db_url="jdbc:mysql://localhost:3306/SajiloHotel";
-    private String db_userName="root";
-    private String db_password="";
     Statement stmt,statement;
     Connection conn;
-
+    String driver="com.mysql.jdbc.Driver";
+    String db_url="jdbc:mysql://localhost:3306/SajiloHotel";
+    String db_userName="root";
+    String db_password="";
     public void createConnection(){
         try{
             Class.forName(driver);
-            Connection conn= DriverManager.getConnection(db_url,db_userName,db_password);
+            conn= DriverManager.getConnection(db_url,db_userName,db_password);
             stmt=conn.createStatement();
             statement=conn.createStatement();
         }catch (Exception e){
@@ -34,8 +33,27 @@ public class AccountsRepository {
             ResultSet user=stmt.executeQuery(loginQuery);
             while (user.next()) {
                 System.out.println(user.getString("Username"));
-                usersModel1=new UsersModel(user.getInt("Id"),user.getString("Username"),user.getString("Password"),user.getInt("Position"));
+                int id=user.getInt("Id");
+                usersModel1=new UsersModel(id,user.getString("Username"),user.getString("Password"),user.getInt("Position"));
+                conn.close();
                 return usersModel1;
+            }
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public UsersModel getUserByID(int id){
+        createConnection();
+        UsersModel usersModel;
+        String getUserId="SELECT * FROM `users` WHERE Id="+id+";";
+        try{
+            ResultSet user=stmt.executeQuery(getUserId);
+            while (user.next()) {
+                usersModel=new UsersModel(user.getInt(0),user.getString("Username"),user.getInt("Position"));
+                conn.close();
+                return usersModel;
             }
         }catch (Exception e){
             System.out.println(e.getMessage());

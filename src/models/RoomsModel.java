@@ -7,11 +7,12 @@ public class RoomsModel {
     private String category;
     private String special;
     private int rate;
+    private String room_type;
     private int is_reserved;
     private int is_occupied;
-    private int user_id;
+    private UsersModel usersModel;
 
-    public RoomsModel(int id, int room_no, String floor, String category, String special, int rate, int is_reserved, int is_occupied, int user_id) {
+    public RoomsModel(int id, int room_no, String floor, String category, String special, int rate,String room_type, int is_reserved, int is_occupied, UsersModel usersModel) {
         this.id = id;
         this.room_no = room_no;
         this.floor = floor;
@@ -20,10 +21,11 @@ public class RoomsModel {
         this.rate = rate;
         this.is_reserved = is_reserved;
         this.is_occupied = is_occupied;
-        this.user_id = user_id;
+        this.usersModel = usersModel;
+        this.room_type=room_type;
     }
 
-    public RoomsModel(int room_no, String floor, String category, String special, int rate, int is_reserved, int is_occupied, int user_id) {
+    public RoomsModel(int room_no, String floor, String category, String special, int rate,String room_type, int is_reserved, int is_occupied, UsersModel usersModel) {
         this.room_no = room_no;
         this.floor = floor;
         this.category = category;
@@ -31,7 +33,8 @@ public class RoomsModel {
         this.rate = rate;
         this.is_reserved = is_reserved;
         this.is_occupied = is_occupied;
-        this.user_id = user_id;
+        this.usersModel = usersModel;
+        this.room_type=room_type;
     }
 
     public int getId() {
@@ -58,6 +61,10 @@ public class RoomsModel {
         return rate;
     }
 
+    public String getRoom_type() {
+        return room_type;
+    }
+
     public int getIs_reserved() {
         return is_reserved;
     }
@@ -66,8 +73,8 @@ public class RoomsModel {
         return is_occupied;
     }
 
-    public int getUser_id() {
-        return user_id;
+    public UsersModel getUsersModel() {
+        return usersModel;
     }
 
     @Override
@@ -79,9 +86,10 @@ public class RoomsModel {
                 ", category='" + category + '\'' +
                 ", special='" + special + '\'' +
                 ", rate=" + rate +
+                ", room_type='" + room_type + '\'' +
                 ", is_reserved=" + is_reserved +
                 ", is_occupied=" + is_occupied +
-                ", user_id=" + user_id +
+                ", usersModel=" + usersModel +
                 '}';
     }
 }

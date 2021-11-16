@@ -84,7 +84,7 @@ public class Login {
                 if(accountsController.login(usersModel)!=null) {
                     try {
                         loginFrame.dispose();
-                        Admin admin = new Admin();
+                        Admin admin = new Admin(accountsController.login(usersModel));
                     } catch (IOException ioException) {
                         ioException.printStackTrace();
                     }

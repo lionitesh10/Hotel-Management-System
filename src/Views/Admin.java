@@ -8,6 +8,7 @@ import Views.roommanagement.RoomCreate;
 import Views.roommanagement.RoomsAvailableList;
 import Views.roommanagement.RoomsOccupiedList;
 import Views.style.GradientStyle;
+import models.UsersModel;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -23,8 +24,10 @@ import static javax.swing.BorderFactory.createLineBorder;
 
 public class Admin {
     private JFrame adminFrame;
-    public Admin() throws IOException {
-        adminFrame=new JFrame("Sajilo Hotel | Admin ");
+    private UsersModel usersModel;
+    public Admin(UsersModel usersModel) throws IOException {
+        this.usersModel=usersModel;
+        adminFrame=new JFrame("Sajilo Hotel |  "+this.usersModel.getUsername());
         adminFrame.setVisible(true);
         adminFrame.setSize(1200,800);
         adminFrame.setDefaultCloseOperation(3);
@@ -53,7 +56,7 @@ public class Admin {
         JLabel occupiedRooms=new JLabel("<html><font size='5'color=white> Occupied Rooms :: </font></html>");
         JLabel occupiedRoomsCount=new JLabel("<html><font size='5'color=white>0</font></html>");
 
-        String loggedInUser="<html><font size='5'color=white>Admin</font></html>";
+        String loggedInUser="<html><font size='5'color=white>"+this.usersModel.getUsername()+"</font></html>";
         JLabel loggedIn=new JLabel(loggedInUser);
 
         long millis=System.currentTimeMillis();
@@ -241,7 +244,7 @@ public class Admin {
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    RoomCreate rc1=new RoomCreate();
+                    RoomCreate rc1=new RoomCreate(usersModel);
 //                    RoomDetails r1 = new RoomDetails();
                 }catch (Exception exception){
                     System.out.println(exception.getMessage());
@@ -280,12 +283,5 @@ public class Admin {
         });
         roomManagementPanel.add(checkOccupiedRoomsListBtn);
 
-    }
-    public static void main(String[] args) {
-        try{
-            Admin a=new Admin();
-        }catch (Exception e){
-
-        }
     }
 }

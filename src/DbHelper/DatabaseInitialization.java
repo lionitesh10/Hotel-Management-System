@@ -52,6 +52,7 @@ public class DatabaseInitialization {
                     "category varchar(255) not null," +
                     "special varchar(500) not null," +
                     "rate int not null," +
+                    "room_type varchar(255) not null," +
                     "is_reserved tinyint(0) not null," +
                     "is_occupied tinyint(0) not null," +
                     "user_id int," +

@@ -12,6 +12,12 @@ public class UsersModel {
         this.position = position;
     }
 
+    public UsersModel(int id, String username, int position) {
+        this.id = id;
+        this.username = username;
+        this.position = position;
+    }
+
     public UsersModel(String username, String password) {
         this.username = username;
         this.password = password;
