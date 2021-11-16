@@ -1,5 +1,6 @@
 package Views.Accounts;
 
+import Controllers.AccountsController;
 import Views.Admin;
 import Views.style.GradientStyle;
 import javax.swing.*;
@@ -10,9 +11,11 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import static javax.swing.BorderFactory.createLineBorder;
-
+import hasher.PasswordHasher;
+import models.UsersModel;
 
 public class Login {
+    AccountsController accountsController=new AccountsController();
     public Login() throws IOException {
         JFrame loginFrame=new JFrame("Sajilo Hotel | Login ");
         loginFrame.setVisible(true);
@@ -75,15 +78,23 @@ public class Login {
         loginBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    loginFrame.dispose();
-                    Admin admin=new Admin();
-                } catch (IOException ioException) {
-                    ioException.printStackTrace();
+                String username=usernameInput.getText();
+                String password= PasswordHasher.getHashvalue(new String(passwordIp.getPassword()));
+                UsersModel usersModel=new UsersModel(username,password);
+                if(accountsController.login(usersModel)!=null) {
+                    try {
+                        loginFrame.dispose();
+                        Admin admin = new Admin();
+                    } catch (IOException ioException) {
+                        ioException.printStackTrace();
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(loginFrame,"Enter valid username and password to login..!!!","Invalid Credentials",JOptionPane.ERROR_MESSAGE);
+                    usernameInput.setText("");
+                    passwordIp.setText("");
                 }
             }
         });
         loginFormPanel.add(loginBtn);
-
     }
 }
